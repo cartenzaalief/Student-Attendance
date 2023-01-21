@@ -14,7 +14,6 @@ const Login = (props) => {
       password,
     })
     .then((res) => {
-      alert("Login Success")
       console.log(res.data);
     })
     .catch((err) => {
