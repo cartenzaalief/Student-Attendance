@@ -21,7 +21,7 @@ const Login = (props) => {
     })
       .then((res) => {
         console.log(res.data);
-        dispatch(loginAction(res.data));
+        dispatch(loginAction(res.data.dataValues));
         localStorage.setItem("attendance_login", res.data.token);
         navigate("/", { replace: true });
       })

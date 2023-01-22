@@ -9,35 +9,43 @@ import Axios from "axios";
 import { API_URL } from "./helper";
 import { useDispatch } from "react-redux";
 import { loginAction } from "./actions/usersAction";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const dispatch = useDispatch();
 
+  const [loading, setLoading] = useState(true);
+
   const keepLogin = () => {
     let getLocalStorage = localStorage.getItem("attendance_login");
     console.log(getLocalStorage);
-    Axios.get(API_URL + "/users/keep", {
-      headers: {
-        "Authorization": `Bearer ${getLocalStorage}`
-      }
-    })
-      .then((res) => {
-        dispatch(loginAction(res.data.dataValues));
-        localStorage.setItem("attendance_login", res.data.token);
+    if (getLocalStorage) {
+      Axios.get(API_URL + "/users/keep", {
+        headers: {
+          Authorization: `Bearer ${getLocalStorage}`,
+        },
       })
-      .catch((err) => {
-        console.log(err);
-      });
+        .then((res) => {
+          dispatch(loginAction(res.data.dataValues));
+          setLoading(false);
+          localStorage.setItem("attendance_login", res.data.token);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    keepLogin()
-  }, [])
+    keepLogin();
+  }, []);
 
   return (
     <div>
-      <Navbar />
+      <Navbar loading={loading} />
       <Routes>
         <Route path="/" element={<Dashboard />} />
         <Route path="/login" element={<Login />} />
