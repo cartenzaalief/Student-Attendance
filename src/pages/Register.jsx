@@ -13,7 +13,6 @@ import {
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import { API_URL } from "../helper";
-import App from "../App";
 
 const Register = (props) => {
   const [NIS, setNIS] = useState("");
@@ -75,7 +74,7 @@ const Register = (props) => {
     }
 
     let classNIS = "";
-    if (inputClass == "Science") {
+    if (inputClass === "Science") {
       classNIS = "Sci";
     } else {
       classNIS = "Soc";

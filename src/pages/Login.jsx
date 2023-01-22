@@ -3,22 +3,31 @@ import { Text, Input, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import Axios from "axios";
 import { API_URL } from "../helper";
+import { useDispatch } from "react-redux";
+import { loginAction } from "../actions/usersAction";
+import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
   const [NIS, setNIS] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const loginButton = () => {
     Axios.post(API_URL + "/users/login", {
       NIS,
       password,
     })
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+      .then((res) => {
+        console.log(res.data);
+        dispatch(loginAction(res.data));
+        localStorage.setItem("attendance_login", res.data.token);
+        navigate("/", { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
