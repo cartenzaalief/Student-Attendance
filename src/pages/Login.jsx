@@ -20,8 +20,8 @@ const Login = (props) => {
       password,
     })
       .then((res) => {
-        console.log(res.data);
-        dispatch(loginAction(res.data.dataValues));
+        console.log("cek", res.data);
+        dispatch(loginAction(res.data));
         localStorage.setItem("attendance_login", res.data.token);
         navigate("/", { replace: true });
       })

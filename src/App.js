@@ -26,7 +26,7 @@ function App() {
         },
       })
         .then((res) => {
-          dispatch(loginAction(res.data.dataValues));
+          dispatch(loginAction(res.data));
           setLoading(false);
           localStorage.setItem("attendance_login", res.data.token);
         })

@@ -18,8 +18,8 @@ const Navbar = (props) => {
   };
 
   return (
-    <Box className="d-flex flex-row justify-content-between align-items-center px-5 py-3">
-      <Text fontSize="3xl">Class Attendance</Text>
+    <Box className="d-flex flex-row justify-content-between align-items-center px-5 py-3" bg="gray.50">
+      <Text fontSize="3xl">Student Attendance</Text>
       {props.loading ? (
         <Spinner />
       ) : fullname ? (
